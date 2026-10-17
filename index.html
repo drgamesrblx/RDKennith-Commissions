@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Commissions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&family=Pixelify+Sans:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* Colors and page setup (change the color variables here) */
+    :root {
+      --bg: #131313;
+      --ink: #ececec;
+      --mute: #bdbdbd;
+      --faint: #9a9a9a;
+      --line: #2e2e2e;
+      color-scheme: dark;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top,0px);
+      padding-bottom: env(safe-area-inset-bottom,0px);
+      --green: #5ee0a0;
+      --red: #ff6b6b;
+    }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(env(safe-area-inset-top,0px) + 12px);
+      -webkit-text-size-adjust: 100%;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Jost, "Helvetica Neue", system-ui, sans-serif;
+      font-size: 1.0625rem;
+      color: var(--ink);
+      line-height: 1.7;
+      background: linear-gradient(#000 0,#131313 420px) no-repeat, #131313;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .06;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    main {
+      position: relative;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 52px 20px 70px;
+    }
+    a {
+      color: inherit;
+    }
+    :focus-visible {
+      outline: 1px solid #fff;
+      outline-offset: 4px;
+    }
+    /* Banner */
+    .banner {
+      position: relative;
+      height: 190px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #fff;
+      background: linear-gradient(90deg,#c9c9ce 0 20%,#3b3e44 20% 40%,#76767a 40% 60%,#27272a 60% 80%,#8d8f8c 80%);
+      box-shadow: 0 0 34px rgba(255,255,255,.18), 0 26px 54px rgba(0,0,0,.7);
+    }
+    .banner::before {
+      /*content: "";*/
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+    }
+    .banner.has-image::before,
+    /*.banner.has-image .wm {
+      display: none;
+    }*/
+    .wm {
+      position: relative;
+      font-family: "Pixelify Sans", monospace;
+      font-weight: 700;
+      font-size: clamp(1.9rem,9vw,3rem);
+      color: #fff;
+      text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 2px 2px #000, -2px -2px #000, 2px -2px #000, -2px 2px #000;
+    }
+    /* Home section */
+    .flo {
+      display: flex;
+      justify-content: center;
+      color: var(--faint);
+      margin: 44px 0 0;
+    }
+    .hero {
+      text-align: center;
+      padding-top: 44px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(1.7rem,6vw,2.3rem);
+      line-height: 1.2;
+      letter-spacing: .02em;
+    }
+    .hero .sub {
+      margin: 12px auto 0;
+      color: #c8c8c8;
+      max-width: 44ch;
+      font-size: 1.05rem;
+    }
+    .shop {
+      margin: 30px auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .shop p {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #cfcfcf;
+      font-weight: 600;
+    }
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font: inherit;
+      font-weight: 500;
+      letter-spacing: .06em;
+      font-size: 1.02rem;
+      text-decoration: none;
+      cursor: pointer;
+      color: #0b0b0b;
+      background: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 2px;
+      padding: 13px 30px;
+      transition: background .2s, color .2s;
+      min-height: 48px;
+    }
+    .btn:hover {
+      background: transparent;
+      color: var(--ink);
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: #555;
+    }
+    .btn.ghost:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,.05);
+    }
+    .btn[aria-disabled="true"] {
+      opacity: .55;
+      pointer-events: none;
+    }
+    .links {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: .85rem;
+      gap: 2px 0;
+    }
+    .links li+li::before {
+      content: "";
+      display: inline-block;
+      width: 1px;
+      height: .9em;
+      background: #555;
+      margin: 0 8px;
+      vertical-align: -1px;
+    }
+    .links a {
+      color: #cfcfcf;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color .2s, border-color .2s;
+      display: inline-block;
+      padding: 10px 0;
+    }
+    .links a:hover {
+      color: #fff;
+      border-color: #888;
+    }
+    /* Section layout and headings */
+    section {
+      margin-top: 64px;
+    }
+    h2 {
+      text-align: center;
+      margin: 0 0 6px;
+      padding-bottom: 10px;
+      border-bottom: 3px double #4a4a4a;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: 2.1rem;
+      line-height: 1.2;
+      letter-spacing: .01em;
+    }
+    .lead {
+      text-align: center;
+      margin: 12px 0 22px;
+      color: #c8c8c8;
+      font-size: 1.05rem;
+    }
+    /* Personal / Commercial switch */
+    .seg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .seg button {
+      font: inherit;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid #555;
+      border-radius: 2px;
+      padding: 15px 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 1.1rem;
+      letter-spacing: .05em;
+      transition: background .2s, color .2s, border-color .2s;
+      min-height: 64px;
+    }
+    .seg button small {
+      display: block;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing: .02em;
+      color: #c4c4c4;
+    }
+    .seg button:hover {
+      border-color: #fff;
+    }
+    .seg button[aria-selected="true"] {
+      background: var(--ink);
+      color: #0b0b0b;
+      border-color: var(--ink);
+    }
+    .seg button[aria-selected="true"] small {
+      color: #333;
+    }
+    /* Terms card */
+    .card {
+      position: relative;
+      padding: 30px 28px;
+      border: 1px solid #3a3a3a;
+      background: rgba(255,255,255,.025);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(255,255,255,.13);
+      pointer-events: none;
+    }
+    .card>* {
+      position: relative;
+    }
+    .intro {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.4rem;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 0 20px;
+      padding: 0;
+      list-style: none;
+      font-size: 1rem;
+      color: #c4c4c4;
+      gap: 6px 0;
+    }
+    .chips li+li::before {
+      content: "";
+      display: inline-block;
+      width: 1px;
+      height: .9em;
+      background: #555;
+      margin: 0 12px;
+      vertical-align: -1px;
+    }
+    /* Category buttons (accordion) */
+    details {
+      border-top: 0;
+      margin: 0 0 12px;
+    }
+    summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 20px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: 1.4rem;
+      letter-spacing: .01em;
+      min-height: 56px;
+      border: 1px solid #4d4d4d;
+      border-radius: 2px;
+      background: rgba(255,255,255,.025);
+      box-shadow: inset 0 0 0 3px #171717, inset 0 0 0 4px rgba(255,255,255,.1);
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    summary::-webkit-details-marker {
+      display: none;
+    }
+    summary::after {
+      content: "+";
+      font-family: Jost, sans-serif;
+      font-weight: 400;
+      color: #e6e6e6;
+      font-size: 1.25rem;
+      line-height: 1;
+      flex: none;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      padding-bottom: 2px;
+      border: 1px solid #7a7a7a;
+      border-radius: 50%;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    details[open] summary::after {
+      content: "\2212";
+      color: #0b0b0b;
+      border-color: var(--ink);
+      background: var(--ink);
+    }
+    /* Term lists: green check, red X, gray dash */
+    ul.items {
+      margin: 14px 0 24px;
+      padding: 0 6px;
+      list-style: none;
+      color: #e0e0e0;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    ul.items li {
+      position: relative;
+      padding-left: 24px;
+      margin: 8px 0;
+    }
+    ul.items li::before {
+      content: "\2013";
+      position: absolute;
+      left: 4px;
+      color: #9a9a9a;
+    }
+    ul.items li.y::before {
+      content: "\2713";
+      color: var(--green);
+      left: 2px;
+      font-weight: 700;
+    }
+    ul.items li.n {
+      color: #c2c2c2;
+    }
+    ul.items li.n::before {
+      content: "\2715";
+      color: var(--red);
+      left: 2px;
+      font-weight: 700;
+    }
+    /* Agree checkbox and request buttons */
+    .agree {
+      margin-top: 10px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .agree label {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      cursor: pointer;
+      font-size: 1.02rem;
+      color: #e0e0e0;
+    }
+    .agree input {
+      position: absolute;
+      opacity: 0;
+    }
+    .agree .box {
+      flex: none;
+      width: 26px;
+      height: 26px;
+      border: 1px solid #888;
+      border-radius: 2px;
+      display: grid;
+      place-items: center;
+      color: transparent;
+      font-size: .8rem;
+    }
+    .agree input:checked+.box {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #0b0b0b;
+    }
+    .agree input:focus-visible+.box {
+      outline: 1px solid #fff;
+      outline-offset: 3px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    /* Pricing list */
+    .mode {
+      display: block;
+      text-align: center;
+      margin: 0 0 22px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: #cfcfcf;
+      font-weight: 600;
+    }
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .grp {
+      flex: 1 1 170px;
+      max-width: 200px;
+    }
+    .grp h3 {
+      text-align: center;
+      margin: 0 0 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--line);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.55rem;
+    }
+    .leader {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .leader li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 11px 0;
+      font-size: 1.05rem;
+    }
+    .leader i {
+      flex: 1;
+      min-width: 12px;
+      border-bottom: 1px dotted #666;
+    }
+    .leader b {
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+    #addons {
+      margin-top: 30px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+    /* Example gallery */
+    .gal {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .gal figure {
+      margin: 0;
+      padding: 9px 9px 8px;
+      background: #0b0b0b;
+      border: 1px solid #444;
+      box-shadow: 0 10px 24px rgba(0,0,0,.5);
+    }
+    .gal figure:nth-child(odd) {
+      transform: rotate(-.7deg);
+    }
+    .gal figure:nth-child(even) {
+      transform: rotate(.6deg);
+    }
+    .plate {
+      aspect-ratio: 4/5;
+      background: var(--g);
+      border: 1px solid #000;
+    }
+    .gal figcaption {
+      margin-top: 7px;
+      text-align: center;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: #cfcfcf;
+      font-weight: 600;
+    }
+    /* Notes and footer */
+    .note {
+      margin: 22px 0 0;
+      font-size: .95rem;
+      color: #b5b5b5;
+      font-style: italic;
+    }
+    .back {
+      margin-top: 30px;
+      text-align: center;
+    }
+    footer {
+      margin-top: 56px;
+      text-align: center;
+      font-size: .95rem;
+      color: #a8a8a8;
+    }
+    summary:hover {
+      background: rgba(255,255,255,.06);
+      border-color: #9a9a9a;
+    }
+    details[open] summary {
+      background: rgba(255,255,255,.09);
+      color: var(--ink);
+      border-color: #c8c8c8;
+      box-shadow: inset 0 0 0 3px #1a1a1a, inset 0 0 0 4px rgba(255,255,255,.18);
+    }
+    details[open] summary:hover {
+      background: rgba(255,255,255,.11);
+    }
+    summary:hover::after {
+      border-color: #fff;
+    }
+    /* Small screens and reduced motion */
+    @media (max-width:480px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 24px 18px;
+      }
+      .gal {
+        grid-template-columns: repeat(2,1fr);
+        gap: 14px;
+      }
+      body {
+        font-size: 1.125rem;
+      }
+      .card::before {
+        inset: 5px;
+      }
+      ul.items {
+        font-size: 1.1rem;
+      }
+      h2 {
+        font-size: 1.9rem;
+      }
+      .links {
+        flex-wrap: wrap;
+        font-size: 1rem;
+        gap: 0 18px;
+      }
+      .links li+li::before {
+        display: none;
+      }
+    }
+    @media (max-width:560px) {
+      .menu {
+        gap: 26px;
+      }
+      .grp {
+        flex-basis: 100%;
+        max-width: 340px;
+      }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .btn,
+      .seg button,
+      .links a {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+
+    <!-- HOME: banner, bio, shop, social links -->
+    <div class="banner"><span class="wm" id="wordmark"></span></div>
+    <div class="hero">
+      <h1 id="tagline"></h1>
+      <p class="sub" id="bio"></p>
+      <div class="shop">
+        <p id="shopText"></p>
+        <a class="btn" id="shopButton" href="#"></a>
+      </div>
+      <ul class="links" id="links"></ul>
+    </div>
+
+    <div class="flo">
+      <svg viewBox="0 0 240 14" width="240" height="14" aria-hidden="true">
+        <path d="M2 8 C30 2 50 13 80 7 S110 3 120 7 S150 12 180 6 S215 4 238 8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="120" cy="7" r="2" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- TERMS: Personal / Commercial -->
+    <section id="terms">
+      <h2>Commission Terms [Available: <span id="status" role="img"></span>]</h2>
+      <p class="lead">Choose the one that matches how you’ll use the art.</p>
+      <div class="seg" role="tablist">
+        <button role="tab" data-mode="personal" aria-selected="true">Personal<small>for you &amp; your OCs</small></button>
+        <button role="tab" data-mode="commercial" aria-selected="false">Commercial<small>for business &amp; profit</small></button>
+      </div>
+      <div class="card" id="termsPanel" role="tabpanel" aria-live="polite"></div>
+    </section>
+
+    <!-- PRICING & EXAMPLES -->
+    <section id="pricing">
+      <!--<h2>Pricing &amp; Examples</h2>-->
+      <h2>Pricing</h2>
+      <p class="lead">Prices follow the terms you selected above.<br>Only accepting PayPal.<br>It has to be me who requests the payment, not the client.</p>
+      <span class="mode" id="modeLabel"></span>
+      <div class="menu" id="priceList"></div>
+      <ul class="leader" id="addons"></ul>
+
+      <!--<h2 style="margin-top: 56px">Examples</h2>
+      <div class="gal" id="gallery"></div>-->
+      <p class="note">Prices are starting points. Complex designs are quoted before payment.</p>
+      <p class="back"><a class="btn ghost" href="#terms">Back to terms</a></p>
+    </section>
+
+    <footer id="updated"></footer>
+  </main>
+
+  <script>
+    /* ==========================================================
+       1. SETTINGS - edit the text, links and prices in this block
+       ========================================================== */
+    const CONFIG = {
+      // Home section
+      name: "RDKennith",                  // wordmark on the banner
+      bannerImage: "Banner.png",                   // banner image: file path or URL, e.g. "banner.png". Leave "" to show the name instead
+      bannerHeight: 290,                 // banner height in px (see size note below the settings)
+      tagline: "20↑ 2D Digital Artist | 📍Hong Kong",
+      bio: "- Illustrator, UI Designer, Character Concept Artist, Suit Lover - Commissions may open up from time to time, so keep an eye on my socials.",
+      shopText: "If you wish to support my dream, check out my online store!",
+      shop: { label: "Online Shop", url: "https://acggoods.com/store/rdkennith" },
+      links: [
+        { label: "Instagram",   url: "https://www.instagram.com/rdkennith/" },
+        { label: "Twitter (X)", url: "https://x.com/RDKennith" },
+        { label: "Strawpage",   url: "https://rdkennith.straw.page/" },
+        { label: "TikTok",      url: "https://www.instagram.com/rdkennith/" },
+        { label: "Twitch",      url: "https://www.twitch.tv/rdkennith" },
+        { label: "Tumblr",      url: "https://www.tumblr.com/rdkennith" },
+        { label: "Pixiv",       url: "https://www.pixiv.net/en/users/58088982" },
+        { label: "DeviantArt",  url: "https://www.deviantart.com/rdkennith" },
+        { label: "Cara",        url: "https://cara.app/rdkennith" },
+      ],
+
+      commissionsOpen: false,   // true = 🟢⚫ (open), false = ⚫🔴 (closed)
+      
+      // Where "Request a commission" goes for each type (email link, form URL, DM link...)
+      contactUrls: {
+        personal: "https://discord.gg/cet6BSNbKF",
+        commercial: "https://mail.google.com/mail/?view=cm&to=drgamesrblx@gmail.com&su=Commercial%20commission%20request",
+      },
+      lastUpdated: "18-10-2026",
+
+      // Pricing. Commercial prices = personal prices x commercialMultiplier.
+      currency: "$",
+      commercialMultiplier: 2,
+      sizes: ["Bust", "Thigh Up", "Full Body", "Chibi", "Spread Sheet"],
+      styles: [
+        // one price per size, in the same order as `sizes` above
+        { name: "Flat Color",  prices: [40, 60, 80] },
+        { name: "Full Render", prices: [60, 80, 110, 35, 150] },
+      ],
+      addons: [
+        { name: "Extra Character (Max 5 Total)",    price: "+20%" },
+        { name: "Simple Background",  price: "+$5" },
+        { name: "Complex Armor/Gear", price: "+$15" },
+        { name: "Complex VFX",        price: "+$5" },
+        { name: "Rush Order",         price: "+30%" },
+        { name: "Privacy Fee",        price: "+$10" },
+        { name: "Extra Sketch Revision",  price: "+$3 / Revision" },
+        { name: "Post-Sketch Revision",  price: "+$7 / Revision" },
+      ],
+      examples: ["Sketch", "Flat Color", "Full Render", "Half Body", "Full Body", "Background"],
+    };
+
+    /* ==========================================================
+       2. TERMS TEXT - one block for personal, one for commercial.
+       Item prefixes: "+" = green check, "-" = red X, none = gray dash.
+       Keep the [BRACKETS] as reminders until you fill them in.
+       ========================================================== */
+    const TERMS = {
+      personal: {
+        intro: "Art for yourself or as a gift: characters, icons, prints. By ordering, you agree to everything below.",
+        facts: [
+          "Turnaround [1-2 Weeks]",
+          "[5] Sketch Revisions",
+          "[50%] Deposit",
+        ],
+        sections: [
+          {
+            title: "What counts as personal use",
+            items: [
+              "+Keeping the art for yourself or giving it as a gift.",
+              "+Posting on your own socials and avatars, <b>with credit to RDKennith</b>.",
+              "-No selling, merch, monetized content, games, NFTs, or AI training.",
+              "Need any of those? Use the Commercial page.",
+            ],
+          },
+          {
+            title: "Ordering and Payment",
+            items: [
+              "Create a ticket in the Discord server with your reference/design, a description, and the commission type. Custom designs cost extra (see addons below).",
+              "I’ll confirm availability and send an invoice. Work starts <b>after payment</b>.",
+              "Payment via <b>PayPal</b>. Prices in <b>USD</b>.",
+            ],
+          },
+          {
+            title: "Process and Revisions",
+            items: [
+              "You’ll get a sketch before I start rendering.",
+              "Includes <b>5 sketch revisions</b>, $3 per revision after.",
+              "Revisions after a sketch is approved cost $7 per revision.",
+              "Includes free fixes of mistakes.",
+            ],
+          },
+          {
+            title: "Turnaround",
+            items: [
+              "Usually <b>[1-2 weeks]</b>, depending on my queue and complexity.",
+              "I’ll update you at sketch and before final delivery.",
+              "Rush orders: [+30%] if I have room. Ask first.",
+            ],
+          },
+          {
+            title: "Refunds and Cancellations",
+            items: [
+              "+Before sketch: full refund, minus fees.",
+              "+After sketch approval: no refunds.",
+              "Chargebacks mean a ban from future commissions.",
+            ],
+          },
+          {
+            title: "What I will and won’t draw",
+            items: [
+              "+Yumeship, OC x CC, OC x OC, OCs, Slight Gore, Yuri, Yaoi",
+              "-NSFW & Furries (Sorry, I suck), Weird Ships, Extreme Gore, Hate Art, Politics",
+              "I can decline any request. You confirm you have the right to use any character you send.",
+            ],
+          },
+          {
+            title: "Artist Rights",
+            items: [
+              "<b>I keep the copyright.</b> You’re buying a personal-use license, not ownership of the image.",
+              "I reserve the right to freely share or post the artwork on my socials unless the [+$10] privacy fee is paid.",
+              "-Don’t edit, crop out my signature / watermark, trace, redraw, train/use AI, or claim it as yours.",
+            ],
+          },
+          {
+            title: "Delivery",
+            items: [
+              "Final files as PNG via the Discord ticket.",
+              "Watermarked previews until payment is complete.",
+              "Links may expire after 30 days, so please save your files.",
+            ],
+          },
+        ],
+      },
+      commercial: {
+        intro: "Art used to make or promote something: logos, game assets, book covers, VTuber models, merch. Priced higher because the license is broader.",
+        facts: [
+          "Rate [2x] personal",
+          "[50%] deposit to start",
+          "Contract per project",
+        ],
+        sections: [
+          {
+            title: "What counts as commercial use",
+            items: [
+              "Any use by a business, or any use meant to earn money, directly or indirectly.",
+              "Examples: merch, book or album covers, games and apps, monetized channels, ads, logos, mascots, Patreon tier art.",
+              "Unsure? Ask before ordering. Using a personal-license piece commercially breaches these terms.",
+            ],
+          },
+          {
+            title: "Pricing",
+            items: [
+              "Commercial rates start at <b>[2x] my personal rates</b>, or are quoted per project.",
+              "Price depends on the intended use, distribution size, and license length. You’ll get a quote before work starts.",
+              "Merch with print runs over [X] units and corporate use: custom quote. VAT added where applicable.",
+            ],
+          },
+          {
+            title: "License and Ownership",
+            items: [
+              "<b>I keep the copyright.</b> You get a license covering the use stated in your invoice or contract.",
+              "Default: <b>[non-exclusive], [worldwide], [perpetual]</b>, for the stated use only.",
+              "Any use outside that scope needs my written permission and may cost extra.",
+              "The license isn’t transferable unless I agree in writing.",
+            ],
+          },
+          {
+            title: "Credit and Portfolio",
+            items: [
+              "Credit as <b>“Art by RDKennith”</b> with a link to [YOUR SITE], wherever reasonably possible.",
+              "I may show the work in my portfolio. NDA or delayed reveal: tell me before I begin, and will require a privacy fee.",
+            ],
+          },
+          {
+            title: "Contract, Payment, Schedule",
+            items: [
+              "Email drgamesrblx@gmail.com with project details, usage, deadline, and budget.",
+              "I’ll send a contract or invoice with scope, deliverables, license, and timeline.",
+              "<b>[50%] deposit</b> to start; balance due before final files. Larger projects may use milestones.",
+              "Invoices due in [7] days. Late fee: [15%] per week.",
+              "Late feedback or missing assets on your side can move the deadline and may incur additional fees.",
+            ],
+          },
+          {
+            title: "Revisions",
+            items: [
+              "Includes <b>[5] revisions</b> at sketch, post-sketch revisions cost extra.",
+              "Changes must match the approved brief. New scope or concept is re-quoted.",
+              "Extra revisions: [$ / hourly rate (negotiated)]. Send feedback in one message per revision.",
+            ],
+          },
+          {
+            title: "Cancellation and Refunds",
+            items: [
+              "Deposits are <b>non-refundable</b> once work has begun.",
+              "-Cancelling after sketch approval: no refunds.",
+              "+If I can’t finish the project, you get a full refund of unearned payment.",
+              "Final files and license are released only after full payment.",
+            ],
+          },
+          {
+            title: "Restrictions",
+            items: [
+              "-No NFTs, generative-AI training, datasets, or AI derivatives without written agreement.",
+              "-No defamatory or hateful use, and no implying I endorse your product.",
+              "-No tracing, heavy editing, or redrawing to avoid license terms.",
+              "You’re responsible for holding the rights to any IP or trademarks you provide.",
+            ],
+          },
+          {
+            title: "Liability and Delivery",
+            items: [
+              "You’re responsible for how you use the art and for the content you supply.",
+              "My liability is limited to the amount you paid for the commission.",
+              "Files as PNG via email. Links may expire after 30 days.",
+              "Where a signed contract differs from this page, the contract applies. This template isn’t legal advice.",
+            ],
+          },
+        ],
+      },
+    };
+
+    /* ==========================================================
+       3. PAGE LOGIC - no need to edit below this line
+       ========================================================== */
+    const qs = (selector) => document.querySelector(selector);
+    let activeMode = "personal";
+
+    function formatPrice(amount) {
+      return CONFIG.currency + amount;
+    }
+
+    function renderHome() {
+      qs("#wordmark").textContent = CONFIG.name;
+
+      const banner = qs(".banner");
+      banner.style.height = CONFIG.bannerHeight + "px";
+      if (CONFIG.bannerImage) {
+        banner.classList.add("has-image");
+        banner.style.background = `url("${CONFIG.bannerImage}") center / cover no-repeat`;
+        banner.setAttribute("role", "img");
+        banner.setAttribute("aria-label", CONFIG.name);
+      }
+
+      qs("#tagline").textContent = CONFIG.tagline;
+      qs("#bio").textContent = CONFIG.bio;
+      qs("#shopText").textContent = CONFIG.shopText;
+      qs("#shopButton").textContent = CONFIG.shop.label;
+      qs("#shopButton").href = CONFIG.shop.url;
+      qs("#updated").textContent = "Last updated " + CONFIG.lastUpdated;
+      qs("#links").innerHTML = CONFIG.links
+        .map((link) => `<li><a href="${link.url}" target="_blank" rel="noopener">${link.label}</a></li>`)
+        .join("");
+      
+      const status = qs("#status");
+      status.textContent = CONFIG.commissionsOpen ? "🟢⚫" : "⚫🔴";
+      status.setAttribute("aria-label", CONFIG.commissionsOpen ? "Commissions Open" : "Commissions Closed");
+    }
+
+    function renderExamples() {
+      // Gray placeholder tiles. Swap for real images once you have them.
+      qs("#gallery").innerHTML = CONFIG.examples
+        .map((label, i) => {
+          const gradient = `linear-gradient(${150 + i * 25}deg, hsl(0 0% ${46 - i * 3}%), hsl(0 0% ${16 + i * 2}%))`;
+          return `<figure><div class="plate" style="--g: ${gradient}"></div><figcaption>${label}</figcaption></figure>`;
+        })
+        .join("");
+    }
+
+    function renderPricing() {
+      const commercial = activeMode === "commercial";
+      const multiplier = commercial ? CONFIG.commercialMultiplier : 1;
+
+      qs("#modeLabel").textContent = commercial
+        ? `Commercial rates (${CONFIG.commercialMultiplier}x)`
+        : "Personal rates";
+
+      qs("#priceList").innerHTML = CONFIG.styles
+        .map((style) => {
+          const rows = CONFIG.sizes
+            .map((size, i) => {
+              const price = style.prices[i];
+              if (price == null) return "";   // null or undefined: skip this row
+              return `<li><span>${size}</span><i></i><b>${formatPrice(price * multiplier)}</b></li>`;
+            })
+            .join("");
+
+          if (!rows) return "";               // no prices at all: skip the whole column
+          return `<div class="grp"><h3>${style.name}</h3><ul class="leader">${rows}</ul></div>`;
+        })
+        .join("");
+
+      qs("#addons").innerHTML = CONFIG.addons
+        .map((addon) => `<li><span>${addon.name}</span><i></i><b>${addon.price}</b></li>`)
+        .join("");
+    }
+
+    function renderTerms() {
+      const terms = TERMS[activeMode];
+
+      const listItem = (text) => {
+        const type = text[0] === "+" ? "y" : text[0] === "-" ? "n" : "";
+        return `<li class="${type}">${type ? text.slice(1) : text}</li>`;
+      };
+
+      const facts = terms.facts.map((fact) => `<li>${fact}</li>`).join("");
+      const sections = terms.sections
+        .map((section, i) => `
+          <details${i === 0 ? " open" : ""}>
+            <summary>${section.title}</summary>
+            <ul class="items">${section.items.map(listItem).join("")}</ul>
+          </details>`)
+        .join("");
+
+      qs("#termsPanel").innerHTML = `
+        <p class="intro">${terms.intro}</p>
+        <ul class="chips">${facts}</ul>
+        ${sections}
+        <div class="agree">
+          <label>
+            <input type="checkbox" id="agreeBox">
+            <span class="box">&#10003;</span>
+            <span>I’ve read the ${activeMode} terms and I agree to them.</span>
+          </label>
+          <div class="row">
+            <a class="btn" id="requestButton" aria-disabled="true" href="${CONFIG.contactUrls[activeMode]}">Request a commission</a>
+            <a class="btn ghost" href="#pricing">See pricing &amp; examples</a>
+          </div>
+        </div>`;
+
+      qs("#agreeBox").onchange = (event) => {
+        qs("#requestButton").setAttribute("aria-disabled", String(!event.target.checked));
+      };
+    }
+
+    function setMode(mode) {
+      activeMode = mode;
+      document.querySelectorAll(".seg button").forEach((button) => {
+        button.setAttribute("aria-selected", String(button.dataset.mode === mode));
+      });
+      renderTerms();
+      renderPricing();
+    }
+
+    document.querySelectorAll(".seg button").forEach((button) => {
+      button.onclick = () => setMode(button.dataset.mode);
+    });
+
+    renderHome();
+    //renderExamples();
+    setMode("personal");
+  </script>
+</body>
+</html>
